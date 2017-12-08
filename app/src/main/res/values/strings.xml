@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BloodPressure</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="MeasurementTabName">测量</string>
+    <string name="HistoryTabName">历史</string>
+    <string name="RemindersTabName">提醒</string>
+</resources>
