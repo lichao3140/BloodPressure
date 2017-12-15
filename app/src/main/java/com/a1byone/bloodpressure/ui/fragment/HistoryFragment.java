@@ -24,6 +24,7 @@ public class HistoryFragment extends BaseFragment {
     MyAdapter myAdapter;
 
     private final String[] titels = { "图表", "列表", "活动", "地点", "心率"};
+    private int[] drawbles= {};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,7 +42,11 @@ public class HistoryFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return null;
+            Fragment fragment = new ImageFrament();
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", drawbles[position]);
+            fragment.setArguments(bundle);
+            return fragment;
         }
 
         @Override

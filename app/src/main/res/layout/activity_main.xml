@@ -7,43 +7,31 @@
     android:orientation="vertical"
     tools:context="com.a1byone.bloodpressure.ui.activity.MainActivity">
 
-    <include layout="@layout/main_layout_include"/>
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/main_drawer"
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        titlebar:titleBarColor="@color/colorBack"
+        titlebar:titleBarHeight="60dp"
+        titlebar:centerText="@string/app_name"
+        titlebar:centerType="textView"
+        titlebar:centerTextColor="@color/colorWhite"
+        titlebar:leftImageResource="@drawable/title_bar_open"
+        titlebar:leftType="imageButton" />
 
-        <!--两个子控件-->
-        <!--抽屉栏-->
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/main_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start" >
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <android.support.design.widget.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:headerLayout="@layout/nav_header_main"
-                app:menu="@menu/activity_main_drawer" />
-        </LinearLayout>
-
-        <!--内容区域-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/main_fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <include layout="@layout/main_layout_bottom" />
-        </LinearLayout>
-    </android.support.v4.widget.DrawerLayout>
+        <include layout="@layout/main_layout_bottom" />
+    </LinearLayout>
 
 </LinearLayout>

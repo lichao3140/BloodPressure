@@ -1,30 +1,32 @@
 package com.a1byone.bloodpressure.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.ui.fragment.HistoryFragment;
 import com.a1byone.bloodpressure.ui.fragment.MeasureFragment;
 import com.a1byone.bloodpressure.ui.fragment.RemindFragment;
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+
 import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    Toolbar toolbar;
-    DrawerLayout drawerLayout;
+    CommonTitleBar titleBar;
     private ArrayList<Fragment> fragmentList;
 
     LinearLayout mainBottomSwitcherContainer;
@@ -37,22 +39,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer);
+        titleBar = (CommonTitleBar) findViewById(R.id.main_title_bar);
         mainBottomSwitcherContainer = (LinearLayout) findViewById(R.id.main_bottom_switcher_container);
 
         initFragment();
-
-        toolbar.setTitle("1ByOne");
-        setSupportActionBar(toolbar);
-
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        actionBarDrawerToggle.syncState();
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-
         initClick();
         View childView = mainBottomSwitcherContainer.getChildAt(0);
         onClick(childView);
+
+        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+            @Override
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                    startActivity(intent);
+
+                    Toast.makeText(MainActivity.this, "left Button", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void initClick() {
