@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_measure_background_height"
+        android:background="@color/grey5"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/text_margin_left"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/green"
+            android:text="@string/visitor_mode"/>
+
+        <Switch
+            android:id="@+id/switch_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn=""
+            android:textOff=""
+            android:layout_marginRight="@dimen/text_margin_left"
+            android:layout_gravity="center_vertical"
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/iv_measure_connect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:src="@drawable/measure_peidui_no" />
+    </LinearLayout>
+
+</LinearLayout>

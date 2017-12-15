@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.ui.fragment.HistoryFragment;
@@ -21,12 +20,13 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-
+/**
+ * 主页
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    CommonTitleBar titleBar;
+    CommonTitleBar titleBar;//https://github.com/wuhenzhizao/android-titlebar
     private ArrayList<Fragment> fragmentList;
 
     LinearLayout mainBottomSwitcherContainer;
@@ -37,25 +37,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         titleBar = (CommonTitleBar) findViewById(R.id.main_title_bar);
         mainBottomSwitcherContainer = (LinearLayout) findViewById(R.id.main_bottom_switcher_container);
+        View leftLayout = titleBar.getLeftCustomView();
 
         initFragment();
         initClick();
         View childView = mainBottomSwitcherContainer.getChildAt(0);
         onClick(childView);
 
-        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+        leftLayout.setOnClickListener(new View.OnClickListener() { //自定义布局事件
             @Override
-            public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
-                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                    startActivity(intent);
-
-                    Toast.makeText(MainActivity.this, "left Button", Toast.LENGTH_LONG).show();
-                }
+            public void onClick(View view) {
+                //setContentView(R.layout.activity_menu);
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(intent);
             }
         });
     }

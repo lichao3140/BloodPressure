@@ -14,12 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         titlebar:titleBarColor="@color/colorBack"
-        titlebar:titleBarHeight="60dp"
         titlebar:centerText="@string/app_name"
         titlebar:centerType="textView"
         titlebar:centerTextColor="@color/colorWhite"
-        titlebar:leftImageResource="@drawable/title_bar_close"
-        titlebar:leftType="imageButton" />
+        titlebar:leftCustomView="@layout/layout_menu_toolbar_left"
+        titlebar:leftType="customView" />
 
     <TableRow
         android:layout_width="match_parent"
@@ -28,18 +27,21 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_blood_pressure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_blood_pressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:src="@drawable/menu_celiang_down" />
 
             <TextView
+                android:id="@+id/tv_blood_pressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

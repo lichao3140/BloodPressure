@@ -1,3 +1,5 @@
 <resources>
     <dimen name="activity_menu_table_top">15dp</dimen>
+    <dimen name="fragment_measure_background_height">40dp</dimen>
+    <dimen name="text_margin_left">10dp</dimen>
 </resources>
