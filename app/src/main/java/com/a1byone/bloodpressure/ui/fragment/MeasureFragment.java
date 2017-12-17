@@ -63,6 +63,7 @@ public class MeasureFragment extends BaseFragment {
         if (lsDeviceInfo == null) {
             return;
         }
+        currentDevice = lsDeviceInfo;
         LsBleManager.getInstance().stopSearch();//停止搜索，进行配对
         if (ProtocolType.A3.toString().equalsIgnoreCase(lsDeviceInfo.getProtocolType())) {
             if (lsDeviceInfo.getPairStatus() == 1) {
@@ -111,9 +112,8 @@ public class MeasureFragment extends BaseFragment {
                     mlsBleManager.stopDataReceiveService();
                     mlsBleManager.setMeasureDevice(null);
                     mlsBleManager.addMeasureDevice(currentDevice);
-                    mlsBleManager.bindDeviceUser("50:33:8B:D9:B1:29", 1, "sky");
                     mlsBleManager.startDataReceiveService(mDataCallback);
-                    Log.e(TAG, "start sync");
+                    Log.e(TAG, "start sync:" + currentDevice.getMacAddress());
                 }
                 break;
         }
@@ -133,6 +133,11 @@ public class MeasureFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -149,6 +154,7 @@ public class MeasureFragment extends BaseFragment {
             int userNumber = 1;
             String userName = "sky";
             LsBleManager.getInstance().bindDeviceUser(macAddress, userNumber, userName);
+            Log.i(TAG, "MAC:" + macAddress);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -211,30 +217,28 @@ public class MeasureFragment extends BaseFragment {
             Log.i(TAG, formatStringValue(bloodPressureData.toString()));
         }
 
-
-
     };
 
     /**
      * 更新设备的连接状态信息
      *
-     * @param deviceConnectState
+     * @param connectState
      */
-    private void updateDeviceConnectState(final DeviceConnectState deviceConnectState) {
-        if (getActivity() == null || DeviceConnectState.CONNECTING == deviceConnectState) {
+    private void updateDeviceConnectState(final DeviceConnectState connectState) {
+        if (getActivity() == null || DeviceConnectState.CONNECTING == connectState) {
             return;
         }
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 String tempState = "unknown";
-                if (deviceConnectState == DeviceConnectState.CONNECTED_SUCCESS) {
+                if (connectState == DeviceConnectState.CONNECTED_SUCCESS) {
                     isConnect = true;
                     tempState = "Connect Success";
-                } else if (deviceConnectState == DeviceConnectState.CONNECTED_FAILED) {
+                } else if (connectState == DeviceConnectState.CONNECTED_FAILED) {
                     isConnect = false;
                     tempState = "Connect Failed";
-                } else if (deviceConnectState == DeviceConnectState.DISCONNECTED) {
+                } else if (connectState == DeviceConnectState.DISCONNECTED) {
                     isConnect = false;
                     tempState = "DisConnect";
                 }
