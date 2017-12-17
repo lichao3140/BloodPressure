@@ -39,4 +39,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/lifesense_blue_module_v1.3.3.jar')
+    implementation files('libs/HTBodyfat.jar')
 }

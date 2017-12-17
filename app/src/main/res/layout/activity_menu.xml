@@ -49,22 +49,25 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_weight_measurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_weight_measurement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:src="@drawable/menu_haoyou_up" />
 
             <TextView
+                android:id="@+id/tv_weight_measurement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="好友"/>
+                android:text="OBOBase"/>
         </LinearLayout>
 
         <LinearLayout
