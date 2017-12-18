@@ -6,11 +6,16 @@
     <string name="HistoryTabName">历史</string>
     <string name="RemindersTabName">提醒</string>
     <string name="visitor_mode">访客模式</string>
+    <string name="no_device_tip">未连接</string>
 
     <string name="preferenceScreen_title">Scan Filter</string>
     <string name="listPreference_dialogTitle">Choose Broadcast Type</string>
     <string name="listPreference_title">Broadcast Type</string>
     <string name="multiSelectListPreference_dialogTitle">Choose Device Type</string>
     <string name="multiSelectListPreference_title">Device Type</string>
+
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="permission_bluetooth">Need to start bluetooth</string>
 
 </resources>

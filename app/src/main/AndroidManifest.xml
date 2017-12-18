@@ -6,6 +6,9 @@
     android:versionName="1.0"
     tools:ignore="GradleOverrides">
 
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
@@ -53,6 +56,9 @@
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
         </service>
+
+        <!-- 体重BLE连接服务服务 -->
+        <service android:name="com.a1byone.bloodpressure.service.BluetoothLeService" android:enabled="true" />
     </application>
 
 </manifest>
