@@ -15,6 +15,7 @@ import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.ui.fragment.HistoryFragment;
 import com.a1byone.bloodpressure.ui.fragment.MeasureFragment;
 import com.a1byone.bloodpressure.ui.fragment.RemindFragment;
+import com.a1byone.bloodpressure.ui.fragment.WeightFragment;
 import com.a1byone.bloodpressure.utils.ToastUtil;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
@@ -82,14 +83,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ibBloodPressure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtil.showShort(MainActivity.this, "OBOArm");
+                    setContentView(mainView);
+                    getSupportFragmentManager().beginTransaction().remove(fragmentList.get(0)).commit();
+                    fragmentList.remove(0);
+                    fragmentList.add(0,new MeasureFragment());
+                    changeUI(0);
+                    changeFragment(0);
                 }
             });
 
             ibWeightMeasurement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtil.showShort(MainActivity.this, "OBOBase");
+                    setContentView(mainView);
+                    getSupportFragmentManager().beginTransaction().remove(fragmentList.get(0)).commit();
+                    fragmentList.remove(0);
+                    fragmentList.add(0,new WeightFragment());
+                    changeUI(0);
+                    changeFragment(0);
                 }
             });
 
