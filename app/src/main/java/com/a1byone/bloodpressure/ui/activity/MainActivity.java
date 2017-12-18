@@ -3,34 +3,41 @@ package com.a1byone.bloodpressure.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
 import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.ui.fragment.HistoryFragment;
 import com.a1byone.bloodpressure.ui.fragment.MeasureFragment;
 import com.a1byone.bloodpressure.ui.fragment.RemindFragment;
+import com.a1byone.bloodpressure.utils.ToastUtil;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 主页
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private LinearLayout llBloodPressure;
-    private LinearLayout llWeightMeasurement;
-
     private CommonTitleBar mainTitleBar;//https://github.com/wuhenzhizao/android-titlebar
     private CommonTitleBar menuTitleBar;
+    private ImageButton ibBloodPressure;
+    private ImageButton ibWeightMeasurement;
     private ArrayList<Fragment> fragmentList;
 
     private LinearLayout mainBottomSwitcherContainer;
     private FrameLayout mainFragmentContainer;
     private View mainView, menuView;
     private boolean menuViewLoad = false;//menuView是否载入过的flag
+    private boolean isExit;//是否退出
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +70,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setMenuView() {
         setContentView(menuView);
+        initMenuView();
+    }
+
+    private void initMenuView() {
         if (!menuViewLoad) { //如果首次显示menuView,查找menuView里的控件并绑定监听器
             menuTitleBar = (CommonTitleBar) findViewById(R.id.menu_title_bar);
+            ibBloodPressure = (ImageButton) findViewById(R.id.ib_blood_pressure);
+            ibWeightMeasurement = (ImageButton) findViewById(R.id.ib_weight_measurement);
+
+            ibBloodPressure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ToastUtil.showShort(MainActivity.this, "OBOArm");
+                }
+            });
+
+            ibWeightMeasurement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ToastUtil.showShort(MainActivity.this, "OBOBase");
+                }
+            });
+
             View menuLeftLayout = menuTitleBar.getLeftCustomView();
             menuLeftLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,6 +153,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 View childView = ((ViewGroup) view).getChildAt(i);
                 setEnable(childView, b);
             }
+        }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exitBy2Click();
+        }
+        return false;
+    }
+
+    private void exitBy2Click() {
+        if (!isExit) {
+            isExit = true;
+            ToastUtil.showShort(MainActivity.this, "再按一次退出");
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    isExit = false;
+                }
+            }, 2000);
+        } else {
+            onDestroy();
+            finish();
+            System.exit(0);
         }
     }
 }

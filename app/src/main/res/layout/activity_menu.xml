@@ -13,10 +13,10 @@
         android:id="@+id/menu_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        titlebar:titleBarColor="@color/colorBack"
+        titlebar:titleBarColor="@color/md_light_primary_icon"
         titlebar:centerText="@string/app_name"
         titlebar:centerType="textView"
-        titlebar:centerTextColor="@color/colorWhite"
+        titlebar:centerTextColor="@color/accent_white"
         titlebar:leftCustomView="@layout/layout_menu_toolbar_left"
         titlebar:leftType="customView" />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/ib_blood_pressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_celiang_down" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:id="@+id/ib_weight_measurement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_haoyou_up" />
 
             <TextView
@@ -79,7 +79,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_geren_up" />
 
             <TextView
@@ -105,7 +105,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_shezhi_up" />
 
             <TextView
@@ -124,7 +124,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_bangzhu_up" />
 
             <TextView
@@ -143,7 +143,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_jishuzhichi_up" />
 
             <TextView
@@ -169,7 +169,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_goumai_up" />
 
             <TextView
@@ -188,7 +188,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="@color/accent_transparent"
                 android:src="@drawable/menu_dengchu_up" />
 
             <TextView

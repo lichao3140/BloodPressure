@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_measure_background_height"
-        android:background="@color/grey5"
+        android:background="@color/md_light_appbar"
         android:orientation="horizontal">
 
         <TextView
@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/text_margin_left"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/green"
+            android:textColor="@color/accent_green"
             android:text="@string/visitor_mode"/>
 
         <Switch
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/transparent"
+            android:background="@color/accent_transparent"
             android:src="@drawable/measure_peidui_no" />
 
         <TextView

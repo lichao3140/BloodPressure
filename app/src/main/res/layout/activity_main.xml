@@ -12,10 +12,10 @@
         android:id="@+id/main_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        titlebar:titleBarColor="@color/colorBack"
+        titlebar:titleBarColor="@color/md_light_primary_icon"
         titlebar:centerText="@string/app_name"
         titlebar:centerType="textView"
-        titlebar:centerTextColor="@color/colorWhite"
+        titlebar:centerTextColor="@color/accent_white"
         titlebar:leftCustomView="@layout/layout_main_toolbar_left"
         titlebar:leftType="customView" />
 
