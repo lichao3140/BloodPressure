@@ -217,7 +217,6 @@ public class MeasureFragment extends BaseFragment {
             Log.i(TAG, "接受血压测量数据:");
             Log.i(TAG, formatStringValue(bloodPressureData.toString()));
         }
-
     };
 
     /**
@@ -243,7 +242,7 @@ public class MeasureFragment extends BaseFragment {
                     isConnect = false;
                     tempState = "DisConnect";
                 }
-                btStartSync.setText(tempState);
+                tvConnectStatus.setText(tempState);
             }
         });
     }

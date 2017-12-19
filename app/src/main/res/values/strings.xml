@@ -6,6 +6,7 @@
     <string name="HistoryTabName">历史</string>
     <string name="RemindersTabName">提醒</string>
     <string name="visitor_mode">访客模式</string>
+    <string name="hold_baby_mode">抱婴模式</string>
     <string name="no_device_tip">未连接</string>
 
     <string name="preferenceScreen_title">Scan Filter</string>
@@ -17,5 +18,6 @@
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
     <string name="permission_bluetooth">Need to start bluetooth</string>
+    <string name="permission_title_rationale">Authority requirement</string>
 
 </resources>

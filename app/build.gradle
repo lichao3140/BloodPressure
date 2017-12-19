@@ -35,6 +35,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.wuhenzhizao:titlebar:1.0.5'
     implementation 'com.android.support:palette-v7:26.1.0'
+    implementation 'com.github.yilylong:CBDialog:v1.0.6'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

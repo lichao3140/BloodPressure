@@ -1,6 +1,8 @@
 package com.a1byone.bloodpressure.ui.fragment;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -33,6 +36,7 @@ import com.a1byone.bloodpressure.utils.BlueToolUtil;
 import com.a1byone.bloodpressure.utils.BluetoothUtils;
 import com.a1byone.bloodpressure.utils.ToastUtil;
 import com.a1byone.bloodpressure.utils.Units;
+import com.zhl.cbdialog.CBDialogBuilder;
 
 /**
  * 体重测量
@@ -85,7 +89,8 @@ public class WeightFragment extends BaseFragment {
 
             if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                requestPermission(Manifest.permission.ACCESS_COARSE_LOCATION,
+                        getString(R.string.permission_bluetooth),
                         REQUEST_ACCESS_COARSE_LOCATION_PERMISSION);
             } else {
                 //启动扫描
@@ -183,13 +188,13 @@ public class WeightFragment extends BaseFragment {
                         records = BleHelper.getInstance().parseScaleData(data, 170d, 1, 26, 0);
                     }
                     Log.i(TAG, "records:" + records.toString());
-                    tvWeight.setText(records.getRweight() + "");
-                    tvVisceralFat.setText(records.getRbodyfat() + "");
-                    tvMuscle.setText(records.getRmuscle() + "");
-                    tvWater.setText(records.getRbodywater() + "");
-                    tvBones.setText(records.getRbone() + "");
+                    tvWeight.setText(records.getRweight() + "kg");
+                    tvVisceralFat.setText(records.getRbodyfat() + "%");
+                    tvMuscle.setText(records.getRmuscle() + "kg");
+                    tvWater.setText(records.getRbodywater() + "%");
+                    tvBones.setText(records.getRbone() + "kg");
                     tvFat.setText(records.getRvisceralfat() + "");
-                    tvBmr.setText(records.getRbmr() + "");
+                    tvBmr.setText(records.getRbmr() + "Kcal");
                     break;
             }
             super.handleMessage(msg);
@@ -205,7 +210,6 @@ public class WeightFragment extends BaseFragment {
                 mConnected = true;
                 Log.e(TAG, "蓝牙已连接");
                 updateConnectionState(R.string.connected);
-                //invalidateOptionsMenu();
             } else if (BLEConstant.ACTION_GATT_DISCONNECTED.equals(action)) {//蓝牙断开连接
                 mConnected = false;
                 Log.e(TAG, "蓝牙断开");
@@ -280,6 +284,64 @@ public class WeightFragment extends BaseFragment {
                 tvWeightName.setTextColor(getResources().getColor(colourId));
             }
         });
+    }
+
+    protected void showCBDialog(String title, String message, final String permission, final int requestCode) {
+        new CBDialogBuilder(getActivity())
+                .setTouchOutSideCancelable(true)
+                .showCancelButton(true)
+                .setTitle(title)
+                .setMessage(message)
+                .setConfirmButtonText("ok")
+                .setCancelButtonText("cancel")
+                .setDialogAnimation(CBDialogBuilder.DIALOG_ANIM_SLID_BOTTOM)
+                .setDialoglocation(CBDialogBuilder.DIALOG_LOCATION_BOTTOM)
+                .setButtonClickListener(true, new CBDialogBuilder.onDialogbtnClickListener() {
+                    @Override
+                    public void onDialogbtnClick(Context context, Dialog dialog, int whichBtn) {
+                        switch (whichBtn) {
+                            case BUTTON_CONFIRM:
+                                requestPermissions(new String[]{permission}, requestCode);
+                                break;
+                            case BUTTON_CANCEL:
+
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .create().show();
+    }
+
+    /**
+     * 请求权限,如果权限被拒绝过，则提示用户需要权限
+     * @param permission
+     * @param rationale
+     * @param requestCode
+     */
+    @TargetApi(23)
+    protected void requestPermission(final String permission, String rationale, final int requestCode) {
+        if (shouldShowRequestPermissionRationale(permission)) {
+            showCBDialog(getString(R.string.permission_title_rationale), rationale, permission, requestCode);
+        } else {
+            requestPermissions(new String[]{permission}, requestCode);
+        }
+    }
+
+    @TargetApi(23)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_ACCESS_COARSE_LOCATION_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //启动扫描
+                    scanHandler.post(scanThread);
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override
