@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AddRemindActivity">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/add_remind_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:titleBarColor="@color/md_light_primary_icon"
+        titlebar:centerText="@string/add_remind_repeat"
+        titlebar:centerType="textView"
+        titlebar:centerTextColor="@color/accent_white"
+        titlebar:leftCustomView="@layout/layout_toolbar_back"
+        titlebar:leftType="customView"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_remind_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

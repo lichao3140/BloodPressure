@@ -2,17 +2,23 @@ package com.a1byone.bloodpressure.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.a1byone.bloodpressure.R;
+import com.a1byone.bloodpressure.ui.adapter.RemindDataAdapter;
+import com.a1byone.bloodpressure.ui.widget.RecyclerViewWidget;
 import com.a1byone.bloodpressure.utils.ToastUtil;
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 import com.wuhenzhizao.titlebar.utils.AppUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +35,8 @@ public class AddRemindActivity extends AppCompatActivity
     private CommonTitleBar addRemindBar;
     private View addRemindRightLayout;
     private View addRemindLeftLayout;
+    private List<String> list;
+    private RemindDataAdapter remindDataAdapter;
 
     @BindView(R.id.tv_add_remind_time)
     TextView tvAddRemindTime;
@@ -79,14 +87,50 @@ public class AddRemindActivity extends AppCompatActivity
                 rtpd.show(getSupportFragmentManager(), FRAG_TAG_TIME_PICKER);
                 break;
             case R.id.ll_add_remind_repeat:
-                ToastUtil.showShort(AddRemindActivity.this, "重复");
+                setContentView(R.layout.activity_add_remind_data);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_remind_data);
+                initList();
+                LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setHasFixedSize(true);
+                remindDataAdapter = new RemindDataAdapter(list, this);
+                recyclerView.setAdapter(remindDataAdapter);
+                //添加分割线
+                recyclerView.addItemDecoration(new RecyclerViewWidget(this, RecyclerViewWidget.VERTICAL_LIST));
+                remindDataAdapter.setRecyclerViewOnItemClickListener(new RemindDataAdapter.RecyclerViewOnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(View view, int position) {
+                        //设置选中的项
+                        remindDataAdapter.setShowBox();
+                        remindDataAdapter.setSelectItem(position);
+                        remindDataAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public boolean onItemLongClickListener(View view, int position) {
+                        return false;
+                    }
+                });
                 break;
         }
+    }
+
+    private void initList() {
+        list = new ArrayList<>();
+        list.add("每天");
+        list.add("星期一");
+        list.add("星期二");
+        list.add("星期三");
+        list.add("星期四");
+        list.add("星期五");
+        list.add("星期六");
+        list.add("星期日");
     }
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+        AppUtils.StatusBarLightMode(getWindow());
         // 透明化状态栏背景
         AppUtils.transparencyBar(getWindow());
     }
