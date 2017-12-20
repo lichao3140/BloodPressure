@@ -1,5 +1,6 @@
 package com.a1byone.bloodpressure.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private CommonTitleBar mainTitleBar;//https://github.com/wuhenzhizao/android-titlebar
     private CommonTitleBar menuTitleBar;
+    private View mainLeftLayout;
+    private View mainRightLayout;
     private ImageButton ibBloodPressure;
     private ImageButton ibWeightMeasurement;
     private ArrayList<Fragment> fragmentList;
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mainBottomSwitcherContainer = (LinearLayout) findViewById(R.id.main_bottom_switcher_container);
         mainTitleBar = (CommonTitleBar) findViewById(R.id.main_title_bar);
-        View mainLeftLayout = mainTitleBar.getLeftCustomView();
+        mainLeftLayout = mainTitleBar.getLeftCustomView();
+        mainRightLayout = mainTitleBar.getRightCustomView();
 
         initFragment();
         initClick();
@@ -60,6 +64,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 setMenuView();
+            }
+        });
+
+        mainRightLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddRemindActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -135,11 +147,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int index = mainBottomSwitcherContainer.indexOfChild(view);
         changeUI(index);
         changeFragment(index);
+        changeToolBar(index);
     }
 
     private void changeFragment(int index) {
         //获取fragment的管理者对象
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragmentList.get(index)).commit();
+    }
+
+    private void changeToolBar(int index) {
+        switch (index) {
+            case 0:
+                mainTitleBar.getCenterTextView().setText("测量");
+                mainRightLayout.setVisibility(View.GONE);
+                break;
+            case 1:
+                mainTitleBar.getCenterTextView().setText("历史");
+                mainRightLayout.setVisibility(View.GONE);
+
+                break;
+            case 2:
+                mainTitleBar.getCenterTextView().setText("提醒");
+                mainRightLayout.setVisibility(View.VISIBLE);
+                break;
+            default:
+                mainTitleBar.getCenterTextView().setText(R.string.app_name);
+                break;
+        }
     }
 
     private void changeUI(int index) {

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AddRemindActivity">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:titleBarColor="@color/md_light_primary_icon"
+        titlebar:centerText="@string/add_remind"
+        titlebar:centerType="textView"
+        titlebar:centerTextColor="@color/accent_white"
+        titlebar:leftCustomView="@layout/layout_toolbar_back"
+        titlebar:rightCustomView="@layout/layout_toolbar_sure"
+        titlebar:leftType="customView"
+        titlebar:rightType="customView"/>
+
+    <LinearLayout
+        android:id="@+id/ll_add_remind_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_high"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/text_margin_left"
+            android:text="@string/add_remind_time"/>
+
+        <TextView
+            android:id="@+id/tv_add_remind_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/text_margin_left"
+            android:text="09:41"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/text_margin_left"
+        android:layout_marginRight="@dimen/text_margin_left"
+        android:background="@color/md_grey_600" />
+
+    <LinearLayout
+        android:id="@+id/ll_add_remind_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_high"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/text_margin_left"
+            android:text="@string/add_remind_repeat"/>
+
+        <TextView
+            android:id="@+id/tv_add_remind_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/text_margin_left"
+            android:text="每天"/>
+    </LinearLayout>
+
+</LinearLayout>

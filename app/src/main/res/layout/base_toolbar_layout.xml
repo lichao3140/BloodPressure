@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.activity.MainActivity">
+    android:layout_height="match_parent">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
         xmlns:titlebar="http://schemas.android.com/apk/res-auto"
@@ -20,19 +16,5 @@
         titlebar:rightCustomView="@layout/layout_remind_toolbar_right"
         titlebar:leftType="customView"
         titlebar:rightType="customView"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/main_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <include layout="@layout/main_layout_bottom" />
-    </LinearLayout>
 
 </LinearLayout>

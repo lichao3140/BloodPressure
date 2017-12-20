@@ -2,6 +2,10 @@
     <dimen name="activity_menu_table_top">15dp</dimen>
     <dimen name="fragment_measure_background_height">40dp</dimen>
     <dimen name="text_margin_left">10dp</dimen>
-    <dimen name="layout_margin_top">20dp</dimen>
+    <dimen name="layout_margin_top_20">20dp</dimen>
     <dimen name="dialog_text_padding">5dp</dimen>
+    <dimen name="layout_high">60dp</dimen>
+    <dimen name="layout_margin_top_5">5dp</dimen>
+
+    <dimen name="text_size">20sp</dimen>
 </resources>

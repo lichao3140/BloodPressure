@@ -59,7 +59,7 @@
         android:layout_height="35dp"
         android:layout_marginLeft="@dimen/text_margin_left"
         android:layout_marginRight="@dimen/text_margin_left"
-        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginTop="@dimen/layout_margin_top_20"
         android:orientation="horizontal">
 
         <TextView

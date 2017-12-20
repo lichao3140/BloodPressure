@@ -6,7 +6,9 @@
     android:versionName="1.0"
     tools:ignore="GradleOverrides">
 
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -38,27 +40,31 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activity.AddRemindActivity"></activity>
+
         <service
             android:name="com.lifesense.ble.message.NotificationService"
             android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
         <service
             android:name="com.lifesense.ble.message.NotificationAccessService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
         </service>
 
         <!-- 体重BLE连接服务服务 -->
-        <service android:name="com.a1byone.bloodpressure.service.BluetoothLeService" android:enabled="true" />
+        <service
+            android:name=".service.BluetoothLeService"
+            android:enabled="true" />
+
     </application>
 
 </manifest>
