@@ -10,9 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.a1byone.bloodpressure.R;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,7 +93,9 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
 
     @Override
     public boolean onLongClick(View view) {
-        return false;
+        //不管显示隐藏，清空状态
+        initMap();
+        return onItemClickListener != null && onItemClickListener.onItemLongClickListener(view, (Integer) view.getTag());
     }
 
     //视图管理

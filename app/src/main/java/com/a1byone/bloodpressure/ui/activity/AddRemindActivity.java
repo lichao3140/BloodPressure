@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,10 +34,14 @@ public class AddRemindActivity extends AppCompatActivity
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
 
     private CommonTitleBar addRemindBar;
+    private CommonTitleBar RemindDataBar;
     private View addRemindRightLayout;
     private View addRemindLeftLayout;
+    private View addRemindView, remindDataView;
+    private boolean remindDataViewLoad = false;//remindDataViewLoad是否载入过的flag
     private List<String> list;
     private RemindDataAdapter remindDataAdapter;
+    private RecyclerView recyclerView;
 
     @BindView(R.id.tv_add_remind_time)
     TextView tvAddRemindTime;
@@ -50,7 +55,9 @@ public class AddRemindActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_remind);
+        addRemindView = LayoutInflater.from(this).inflate(R.layout.activity_add_remind, null);
+        remindDataView = LayoutInflater.from(this).inflate(R.layout.activity_add_remind_data, null);
+        setContentView(addRemindView);
         ButterKnife.bind(this);
 
         Calendar c = Calendar.getInstance();
@@ -77,6 +84,44 @@ public class AddRemindActivity extends AppCompatActivity
         });
     }
 
+    private void setRemindDataView() {
+        setContentView(remindDataView);
+        if (!remindDataViewLoad) {
+            RemindDataBar = (CommonTitleBar) findViewById(R.id.remind_data_title_bar);
+            recyclerView = (RecyclerView) findViewById(R.id.rv_remind_data);
+            initList();
+            LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(manager);
+            recyclerView.setHasFixedSize(true);
+            remindDataAdapter = new RemindDataAdapter(list, this);
+            recyclerView.setAdapter(remindDataAdapter);
+            //添加分割线
+            recyclerView.addItemDecoration(new RecyclerViewWidget(this, RecyclerViewWidget.VERTICAL_LIST));
+            remindDataAdapter.setRecyclerViewOnItemClickListener(new RemindDataAdapter.RecyclerViewOnItemClickListener() {
+                @Override
+                public void onItemClickListener(View view, int position) {
+                    //设置选中的项
+                    remindDataAdapter.setShowBox();
+                    remindDataAdapter.setSelectItem(position);
+                    remindDataAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public boolean onItemLongClickListener(View view, int position) {
+                    return false;
+                }
+            });
+
+            View addRemindLeftLayout = RemindDataBar.getLeftCustomView();
+            addRemindLeftLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setContentView(addRemindView);
+                }
+            });
+        }
+    }
+
     @OnClick({R.id.ll_add_remind_time, R.id.ll_add_remind_repeat})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -87,30 +132,7 @@ public class AddRemindActivity extends AppCompatActivity
                 rtpd.show(getSupportFragmentManager(), FRAG_TAG_TIME_PICKER);
                 break;
             case R.id.ll_add_remind_repeat:
-                setContentView(R.layout.activity_add_remind_data);
-                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_remind_data);
-                initList();
-                LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(manager);
-                recyclerView.setHasFixedSize(true);
-                remindDataAdapter = new RemindDataAdapter(list, this);
-                recyclerView.setAdapter(remindDataAdapter);
-                //添加分割线
-                recyclerView.addItemDecoration(new RecyclerViewWidget(this, RecyclerViewWidget.VERTICAL_LIST));
-                remindDataAdapter.setRecyclerViewOnItemClickListener(new RemindDataAdapter.RecyclerViewOnItemClickListener() {
-                    @Override
-                    public void onItemClickListener(View view, int position) {
-                        //设置选中的项
-                        remindDataAdapter.setShowBox();
-                        remindDataAdapter.setSelectItem(position);
-                        remindDataAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public boolean onItemLongClickListener(View view, int position) {
-                        return false;
-                    }
-                });
+                setRemindDataView();
                 break;
         }
     }
