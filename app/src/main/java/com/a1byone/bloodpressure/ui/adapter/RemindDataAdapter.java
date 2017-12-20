@@ -2,6 +2,7 @@ package com.a1byone.bloodpressure.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +36,10 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
         initMap();
     }
 
-    //初始化map集合,默认为不选中
+    //初始化map集合,默认为全选中
     private void initMap() {
         for (int i = 0; i < list.size(); i++) {
-            map.put(i, false);
+            map.put(i, true);
         }
     }
 
@@ -48,6 +49,7 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
         MyViewHolder myViewHolder = new MyViewHolder(root);
         //为Item设置点击事件
         root.setOnClickListener(this);
+        root.setOnLongClickListener(this);
         return myViewHolder;
     }
 
@@ -128,8 +130,10 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
         //对当前状态取反
         if (map.get(position)) {
             map.put(position, false);
+            Log.e("lichao", "点" + position + "显示");
         } else {
             map.put(position, true);
+            Log.e("lichao", "点" + position + "隐藏");
         }
         notifyItemChanged(position);
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +31,7 @@ import butterknife.OnClick;
  * 添加提醒
  */
 public class AddRemindActivity extends AppCompatActivity
-        implements RadialTimePickerDialogFragment.OnTimeSetListener{
+        implements RadialTimePickerDialogFragment.OnTimeSetListener {
     private final static String TAG = MainActivity.class.getSimpleName();
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
 
@@ -60,11 +62,7 @@ public class AddRemindActivity extends AppCompatActivity
         setContentView(addRemindView);
         ButterKnife.bind(this);
 
-        Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
-        tvAddRemindTime.setText(hour + ":" + minute);
-
+        tvAddRemindTime.setText(getSysTime());
         addRemindBar = (CommonTitleBar) findViewById(R.id.add_remind_title_bar);
         addRemindLeftLayout = addRemindBar.getLeftCustomView();
         addRemindRightLayout = addRemindBar.getRightCustomView();
@@ -84,6 +82,19 @@ public class AddRemindActivity extends AppCompatActivity
         });
     }
 
+    private String getSysTime() {
+        String sysTime = null;
+        Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        if (minute < 10) {
+            sysTime = hour + ":0" + minute;
+        } else {
+            sysTime = hour + ":" + minute;
+        }
+        return sysTime;
+    }
+
     private void setRemindDataView() {
         setContentView(remindDataView);
         if (!remindDataViewLoad) {
@@ -100,9 +111,8 @@ public class AddRemindActivity extends AppCompatActivity
             remindDataAdapter.setRecyclerViewOnItemClickListener(new RemindDataAdapter.RecyclerViewOnItemClickListener() {
                 @Override
                 public void onItemClickListener(View view, int position) {
-                    //设置选中的项
                     remindDataAdapter.setShowBox();
-                    remindDataAdapter.setSelectItem(position);
+                    remindDataAdapter.setSelectItem(position);//设置选中的项
                     remindDataAdapter.notifyDataSetChanged();
                 }
 
@@ -116,6 +126,13 @@ public class AddRemindActivity extends AppCompatActivity
             addRemindLeftLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //获取你选中的item
+                    Map<Integer, Boolean> map = remindDataAdapter.getMap();
+                    for (int i = 0; i < map.size(); i++) {
+                        if (map.get(i)) {
+                            Log.e(TAG, "你选了第：" + i + "项");
+                        }
+                    }
                     setContentView(addRemindView);
                 }
             });
@@ -133,6 +150,8 @@ public class AddRemindActivity extends AppCompatActivity
                 break;
             case R.id.ll_add_remind_repeat:
                 setRemindDataView();
+//                Intent intent = new Intent(AddRemindActivity.this, RemindDataActivity.class);
+//                startActivity(intent);
                 break;
         }
     }

@@ -39,8 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.activity.AddRemindActivity"></activity>
+        <activity android:name=".ui.activity.AddRemindActivity" />
+        <activity android:name=".ui.activity.RemindDataActivity" />
 
         <service
             android:name="com.lifesense.ble.message.NotificationService"
@@ -64,7 +64,6 @@
         <service
             android:name=".service.BluetoothLeService"
             android:enabled="true" />
-
     </application>
 
 </manifest>
