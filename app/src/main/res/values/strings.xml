@@ -7,6 +7,7 @@
     <string name="RemindersTabName">提醒</string>
     <string name="add_remind">添加提醒</string>
     <string name="add_remind_time">时间</string>
+    <string name="radial_time_picker_result_value">%1$d:%2$d</string>
     <string name="add_remind_repeat">重复</string>
     <string name="visitor_mode">访客模式</string>
     <string name="hold_baby_mode">抱婴模式</string>
