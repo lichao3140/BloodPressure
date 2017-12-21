@@ -6,12 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
 import com.a1byone.bloodpressure.R;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
 
     private List<String> list;//数据源
     private Context context;
-    private boolean isShowBox = false;  //是否显示单选框,默认false
+    private boolean isShowBox = true;  //是否显示单选框,默认true
     private Map<Integer, Boolean> map = new HashMap<>();  // 存储勾选框状态的map集合
     private RecyclerViewOnItemClickListener onItemClickListener;  //接口实例
 
@@ -59,13 +59,14 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
         //长按显示/隐藏
         if (isShowBox) {
             holder.checkBox.setVisibility(View.VISIBLE);
-        } else {
-            holder.checkBox.setVisibility(View.INVISIBLE);
         }
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.add_remind_data_anim);
+//        else {
+//            holder.checkBox.setVisibility(View.INVISIBLE);
+//        }
+        //Animation animation = AnimationUtils.loadAnimation(context, R.anim.add_remind_data_anim);
         //设置checkBox显示的动画
-        if (isShowBox)
-            holder.checkBox.startAnimation(animation);
+        //if (isShowBox)
+            //holder.checkBox.startAnimation(animation);
         holder.root.setTag(position);  //设置Tag
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -127,15 +128,38 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
 
     //点击item选中CheckBox
     public void setSelectItem(int position) {
-        //对当前状态取反
-        if (map.get(position)) {
+        if (position == 0) {
+            if (map.get(position)) { //全选
+                for (int i = 0; i < list.size(); i++) {
+                    map.put(position +i, false);
+                }
+            } else {
+                for (int i = 0; i < list.size(); i++) {
+                    map.put(position + i, true);
+                }
+            }
+        } else if (map.get(position) && position != 0) {
             map.put(position, false);
-            Log.e("lichao", "点" + position + "显示");
-        } else {
+            map.put(0, false);
+            Log.e("lichao", "点" + position + "取消");
+        } else if (!map.get(position) && position != 0){
             map.put(position, true);
-            Log.e("lichao", "点" + position + "隐藏");
+            if (selectNum() == 7) {
+                map.put(0, true);
+            }
+            Log.e("lichao", "点" + position + "选中");
         }
         notifyItemChanged(position);
+    }
+
+    private int selectNum() {
+        int num = 0;
+        for (int s = 0; s < getMap().size(); s ++) {
+            if (getMap().get(s)) {
+                num++;
+            }
+        }
+        return num;
     }
 
     //返回集合给Activity

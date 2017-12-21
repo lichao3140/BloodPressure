@@ -111,7 +111,7 @@ public class AddRemindActivity extends AppCompatActivity
             remindDataAdapter.setRecyclerViewOnItemClickListener(new RemindDataAdapter.RecyclerViewOnItemClickListener() {
                 @Override
                 public void onItemClickListener(View view, int position) {
-                    remindDataAdapter.setShowBox();
+                    //remindDataAdapter.setShowBox();
                     remindDataAdapter.setSelectItem(position);//设置选中的项
                     remindDataAdapter.notifyDataSetChanged();
                 }
