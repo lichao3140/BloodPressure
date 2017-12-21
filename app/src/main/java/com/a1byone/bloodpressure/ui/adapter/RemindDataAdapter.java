@@ -60,9 +60,6 @@ public class RemindDataAdapter extends RecyclerView.Adapter<RemindDataAdapter.My
         if (isShowBox) {
             holder.checkBox.setVisibility(View.VISIBLE);
         }
-//        else {
-//            holder.checkBox.setVisibility(View.INVISIBLE);
-//        }
         //Animation animation = AnimationUtils.loadAnimation(context, R.anim.add_remind_data_anim);
         //设置checkBox显示的动画
         //if (isShowBox)
