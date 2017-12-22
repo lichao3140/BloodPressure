@@ -12,6 +12,7 @@
     <string name="visitor_mode">访客模式</string>
     <string name="hold_baby_mode">抱婴模式</string>
     <string name="no_device_tip">未连接</string>
+    <string name="login">登录</string>
 
     <string name="preferenceScreen_title">Scan Filter</string>
     <string name="listPreference_dialogTitle">Choose Broadcast Type</string>
@@ -23,5 +24,19 @@
     <string name="disconnected">Disconnected</string>
     <string name="permission_bluetooth">Need to start bluetooth</string>
     <string name="permission_title_rationale">Authority requirement</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

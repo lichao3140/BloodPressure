@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 26
@@ -9,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
     }
     buildTypes {
         release {
@@ -37,6 +42,7 @@ dependencies {
     implementation 'com.android.support:palette-v7:26.1.0'
     implementation 'com.github.yilylong:CBDialog:v1.0.6'
     implementation 'com.code-troopers.betterpickers:library:3.1.0'
+    implementation 'org.greenrobot:greendao:3.2.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
