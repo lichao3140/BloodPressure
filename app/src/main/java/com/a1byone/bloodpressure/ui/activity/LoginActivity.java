@@ -17,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import com.a1byone.bloodpressure.Dao.UserDao;
 import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.bean.UserInfo;
+import com.a1byone.bloodpressure.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private List<UserInfo> listUserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -89,7 +93,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 //attemptLogin();
-                addUser();
+                if (!isExist(email)) {
+                    addUser(email, password);
+                    ToastUtil.showShort(LoginActivity.this, "注册成功");
+                } else {
+                    ToastUtil.showShort(LoginActivity.this, "账号已存在");
+                }
+
             }
         });
 
@@ -97,14 +107,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void addUser() {
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
+    private void addUser(String email, String password) {
         UserInfo userInfo = new UserInfo();
         userInfo.setEmail(email);
         userInfo.setPassword(password);
         UserDao.insertUser(userInfo);
+    }
+
+    private boolean isExist(String email) {
+        listUserInfo = new ArrayList<>();
+        listUserInfo = UserDao.queryUser(email);
+        Log.e("lichao", "data:" + listUserInfo.size());
+        if (listUserInfo.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void populateAutoComplete() {

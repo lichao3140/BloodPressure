@@ -1,5 +1,7 @@
 package com.a1byone.bloodpressure.Dao;
 
+import android.util.Log;
+
 import com.a1byone.bloodpressure.application.MyApplication;
 import com.a1byone.bloodpressure.bean.UserInfo;
 import com.a1byone.bloodpressure.bean.UserInfoDao;
@@ -43,6 +45,15 @@ public class UserDao {
      * @return
      */
     public static List<UserInfo> queryUser(String email) {
-        return MyApplication.getDaoInstant().getUserInfoDao().queryBuilder().where(UserInfoDao.Properties.Email.eq(email)).list();
+        Log.e("lichao", "queryUser:" + email);
+        return MyApplication.getDaoInstant().getUserInfoDao().queryBuilder().where(UserInfoDao.Properties.Email.eq("346@qq.com")).list();
+    }
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    public static List<UserInfo> queryAll() {
+        return MyApplication.getDaoInstant().getUserInfoDao().loadAll();
     }
 }
