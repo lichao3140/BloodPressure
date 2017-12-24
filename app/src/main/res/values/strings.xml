@@ -13,6 +13,8 @@
     <string name="hold_baby_mode">抱婴模式</string>
     <string name="no_device_tip">未连接</string>
     <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="go_to_register">去注册</string>
 
     <string name="preferenceScreen_title">Scan Filter</string>
     <string name="listPreference_dialogTitle">Choose Broadcast Type</string>

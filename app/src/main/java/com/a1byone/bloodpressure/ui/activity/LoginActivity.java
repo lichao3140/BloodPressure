@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -19,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -32,6 +34,7 @@ import com.a1byone.bloodpressure.Dao.UserDao;
 import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.bean.UserInfo;
 import com.a1byone.bloodpressure.utils.ToastUtil;
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,16 +64,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private AutoCompleteTextView mEmailView, registerEmail;
+    private EditText mPasswordView, registerPwd, registerSurePwd;
     private View mProgressView;
     private View mLoginFormView;
     private List<UserInfo> listUserInfo;
 
+    private CommonTitleBar loginTitleBar;
+    private CommonTitleBar registerTitleBar;
+    private View loginLayout;
+    private View registerLayout;
+    private boolean registerViewLoad = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        loginLayout = LayoutInflater.from(this).inflate(R.layout.activity_login, null);
+        registerLayout = LayoutInflater.from(this).inflate(R.layout.activity_register, null);
+        setContentView(loginLayout);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -93,11 +104,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String email = mEmailView.getText().toString();
                 String password = mPasswordView.getText().toString();
                 //attemptLogin();
-                if (!isExist(email)) {
+                if (isExist(email)) {
                     addUser(email, password);
-                    ToastUtil.showShort(LoginActivity.this, "注册成功");
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    ToastUtil.showShort(LoginActivity.this, "登录成功");
                 } else {
-                    ToastUtil.showShort(LoginActivity.this, "账号已存在");
+                    ToastUtil.showShort(LoginActivity.this, "登录失败");
                 }
 
             }
@@ -105,6 +118,49 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        loginTitleBar = (CommonTitleBar) findViewById(R.id.login_title_bar);
+        loginTitleBar.getRightTextView().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setRegisterView();
+            }
+        });
+    }
+
+    private void setRegisterView() {
+        setContentView(registerLayout);
+        if (!registerViewLoad) {
+            registerTitleBar = (CommonTitleBar) findViewById(R.id.register_title_bar);
+            registerEmail = (AutoCompleteTextView) findViewById(R.id.register_email);
+            registerPwd = (EditText) findViewById(R.id.register_password);
+            registerSurePwd = (EditText) findViewById(R.id.register_sure_password);
+
+            final String register_email = registerEmail.getText().toString();
+            final String register_password = registerPwd.getText().toString();
+            final String register_sure_password = registerSurePwd.getText().toString();
+
+            Button register = (Button) findViewById(R.id.register_button);
+            register.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isExist(register_email) && register_password.equals(register_sure_password)) {
+                        addUser(register_email, register_password);
+                        ToastUtil.showShort(LoginActivity.this, "注册成功");
+                        setContentView(loginLayout);
+                    } else {
+                        ToastUtil.showShort(LoginActivity.this, "账号已存在");
+                    }
+                }
+            });
+
+            registerTitleBar.getLeftCustomView().setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setContentView(loginLayout);
+                }
+            });
+        }
     }
 
     private void addUser(String email, String password) {

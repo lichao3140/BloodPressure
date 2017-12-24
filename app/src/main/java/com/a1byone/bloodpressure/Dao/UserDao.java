@@ -33,7 +33,7 @@ public class UserDao {
      * 更新用户信息
      * @param userInfo
      */
-    public static void updateLove(UserInfo userInfo) {
+    public static void updateUser(UserInfo userInfo) {
         MyApplication.getDaoInstant().getUserInfoDao().update(userInfo);
     }
 
@@ -50,7 +50,7 @@ public class UserDao {
      * 查询所有用户
      * @return
      */
-    public static List<UserInfo> queryAll() {
+    public static List<UserInfo> queryAllUser() {
         return MyApplication.getDaoInstant().getUserInfoDao().loadAll();
     }
 }
