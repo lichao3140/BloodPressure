@@ -18,7 +18,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,10 +103,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String email = mEmailView.getText().toString();
                 String password = mPasswordView.getText().toString();
                 //attemptLogin();
-                if (isExist(email)) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    ToastUtil.showShort(LoginActivity.this, "登录成功");
+                listUserInfo = new ArrayList<>();
+                listUserInfo = UserDao.queryUser(email);
+                if (listUserInfo.size() != 0 && listUserInfo.get(0).getPassword().equals(password)) {
+                    if (listUserInfo.get(0).getName() == null) {
+                        Intent intent = new Intent(LoginActivity.this, UserInfoActivity.class);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
+                        ToastUtil.showShort(LoginActivity.this, "登录成功, 请先完善个人资料");
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
+                        ToastUtil.showShort(LoginActivity.this, "登录成功");
+                    }
                 } else {
                     ToastUtil.showShort(LoginActivity.this, "登录失败");
                 }
@@ -142,7 +151,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     String register_email = registerEmail.getText().toString();
                     String register_password = registerPwd.getText().toString();
                     String register_sure_password = registerSurePwd.getText().toString();
-                    Log.e("lichao", "register:" + register_email);
                     if (!isExist(register_email) && register_password.equals(register_sure_password)) {
                         addUser(register_email, register_password);
                         ToastUtil.showShort(LoginActivity.this, "注册成功");
@@ -172,13 +180,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private boolean isExist(String email) {
         listUserInfo = new ArrayList<>();
         listUserInfo = UserDao.queryUser(email);
-        Log.e("lichao", "data:" + listUserInfo.size());
         if (listUserInfo.size() == 0) {
             return false;
         } else {
             return true;
         }
     }
+
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {

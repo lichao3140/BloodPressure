@@ -27,12 +27,33 @@ public class UserInfo {
     @Unique
     private String email;//邮箱
     private String password;//密码
+    private String name;//姓名
+    private String sex;//性别  1男  2女
+    private String bron;//出生年份
+    private String height;//身高
+    private String grade;//级别 1---普通人  2---业余运动员   3---专业运动员
+    private String isBaby;//是否有婴儿  1---有  0---没有
 
-    @Generated(hash = 904979897)
-    public UserInfo(Long id, String email, String password) {
+    private String babyName;//婴儿名字
+    private String babySex;//婴儿性别  1---男  2---女
+    private String babyBron;//婴儿月份
+
+    @Generated(hash = 2059515799)
+    public UserInfo(Long id, String email, String password, String name, String sex,
+            String bron, String height, String grade, String isBaby, String babyName,
+            String babySex, String babyBron) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.sex = sex;
+        this.bron = bron;
+        this.height = height;
+        this.grade = grade;
+        this.isBaby = isBaby;
+        this.babyName = babyName;
+        this.babySex = babySex;
+        this.babyBron = babyBron;
     }
     @Generated(hash = 1279772520)
     public UserInfo() {
@@ -54,6 +75,60 @@ public class UserInfo {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getSex() {
+        return this.sex;
+    }
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    public String getBron() {
+        return this.bron;
+    }
+    public void setBron(String bron) {
+        this.bron = bron;
+    }
+    public String getHeight() {
+        return this.height;
+    }
+    public void setHeight(String height) {
+        this.height = height;
+    }
+    public String getGrade() {
+        return this.grade;
+    }
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+    public String getIsBaby() {
+        return this.isBaby;
+    }
+    public void setIsBaby(String isBaby) {
+        this.isBaby = isBaby;
+    }
+    public String getBabyName() {
+        return this.babyName;
+    }
+    public void setBabyName(String babyName) {
+        this.babyName = babyName;
+    }
+    public String getBabySex() {
+        return this.babySex;
+    }
+    public void setBabySex(String babySex) {
+        this.babySex = babySex;
+    }
+    public String getBabyBron() {
+        return this.babyBron;
+    }
+    public void setBabyBron(String babyBron) {
+        this.babyBron = babyBron;
     }
 
 }

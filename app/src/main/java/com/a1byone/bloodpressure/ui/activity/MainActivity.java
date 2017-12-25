@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton ibBloodPressure;
     private ImageButton ibWeightMeasurement;
     private ImageButton ibUserInformation;
+    private ImageButton ibSignOut;
     private ArrayList<Fragment> fragmentList;
 
     private LinearLayout mainBottomSwitcherContainer;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View mainView, menuView;
     private boolean menuViewLoad = false;//menuView是否载入过的flag
     private boolean isExit;//是否退出
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainTitleBar = (CommonTitleBar) findViewById(R.id.main_title_bar);
         mainLeftLayout = mainTitleBar.getLeftCustomView();
         mainRightLayout = mainTitleBar.getRightCustomView();
+
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
 
         initFragment();
         initClick();
@@ -89,10 +94,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initMenuView() {
         if (!menuViewLoad) { //如果首次显示menuView,查找menuView里的控件并绑定监听器
-            menuTitleBar = (CommonTitleBar) findViewById(R.id.menu_title_bar);
-            ibBloodPressure = (ImageButton) findViewById(R.id.ib_blood_pressure);
-            ibWeightMeasurement = (ImageButton) findViewById(R.id.ib_weight_measurement);
-            ibUserInformation = (ImageButton) findViewById(R.id.ib_user_information);
+            menuTitleBar = findViewById(R.id.menu_title_bar);
+            ibBloodPressure = findViewById(R.id.ib_blood_pressure);
+            ibWeightMeasurement = findViewById(R.id.ib_weight_measurement);
+            ibUserInformation = findViewById(R.id.ib_user_information);
+            ibSignOut = findViewById(R.id.ib_sign_out);
 
             ibBloodPressure.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,6 +128,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+                    intent.putExtra("email", email);
+                    startActivity(intent);
+                }
+            });
+
+            ibSignOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             });

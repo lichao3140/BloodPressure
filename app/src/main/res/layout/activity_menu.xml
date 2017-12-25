@@ -183,18 +183,21 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_sign_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_sign_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/accent_transparent"
                 android:src="@drawable/menu_dengchu_up" />
 
             <TextView
+                android:id="@+id/tv_sign_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

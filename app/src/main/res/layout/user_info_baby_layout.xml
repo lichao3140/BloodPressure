@@ -45,6 +45,7 @@
             android:text="性别:" />
 
         <RadioGroup
+            android:id="@+id/rg_baby_info_sex"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
