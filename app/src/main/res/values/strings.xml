@@ -15,6 +15,8 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="go_to_register">去注册</string>
+    <string name="user_information">个人资料</string>
+    <string name="baby_information">添加婴儿资料</string>
 
     <string name="preferenceScreen_title">Scan Filter</string>
     <string name="listPreference_dialogTitle">Choose Broadcast Type</string>

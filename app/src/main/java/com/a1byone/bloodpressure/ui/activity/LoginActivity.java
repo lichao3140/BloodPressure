@@ -105,7 +105,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String password = mPasswordView.getText().toString();
                 //attemptLogin();
                 if (isExist(email)) {
-                    addUser(email, password);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     ToastUtil.showShort(LoginActivity.this, "登录成功");
@@ -136,14 +135,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             registerPwd = (EditText) findViewById(R.id.register_password);
             registerSurePwd = (EditText) findViewById(R.id.register_sure_password);
 
-            final String register_email = registerEmail.getText().toString();
-            final String register_password = registerPwd.getText().toString();
-            final String register_sure_password = registerSurePwd.getText().toString();
-
             Button register = (Button) findViewById(R.id.register_button);
             register.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String register_email = registerEmail.getText().toString();
+                    String register_password = registerPwd.getText().toString();
+                    String register_sure_password = registerSurePwd.getText().toString();
+                    Log.e("lichao", "register:" + register_email);
                     if (!isExist(register_email) && register_password.equals(register_sure_password)) {
                         addUser(register_email, register_password);
                         ToastUtil.showShort(LoginActivity.this, "注册成功");

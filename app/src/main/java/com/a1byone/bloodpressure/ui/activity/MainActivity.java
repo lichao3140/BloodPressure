@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View mainRightLayout;
     private ImageButton ibBloodPressure;
     private ImageButton ibWeightMeasurement;
+    private ImageButton ibUserInformation;
     private ArrayList<Fragment> fragmentList;
 
     private LinearLayout mainBottomSwitcherContainer;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             menuTitleBar = (CommonTitleBar) findViewById(R.id.menu_title_bar);
             ibBloodPressure = (ImageButton) findViewById(R.id.ib_blood_pressure);
             ibWeightMeasurement = (ImageButton) findViewById(R.id.ib_weight_measurement);
+            ibUserInformation = (ImageButton) findViewById(R.id.ib_user_information);
 
             ibBloodPressure.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,6 +115,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fragmentList.add(0,new WeightFragment());
                     changeUI(0);
                     changeFragment(0);
+                }
+            });
+
+            ibUserInformation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+                    startActivity(intent);
                 }
             });
 
