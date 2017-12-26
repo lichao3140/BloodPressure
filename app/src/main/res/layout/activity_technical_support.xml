@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.TechnicalSupportActivity">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/technical_support_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:titleBarColor="@color/md_light_primary_icon"
+        titlebar:centerText="@string/technical_support"
+        titlebar:centerType="textView"
+        titlebar:centerTextColor="@color/accent_white"
+        titlebar:leftCustomView="@layout/layout_toolbar_back"
+        titlebar:leftType="customView"
+        titlebar:rightText="@string/send_email"
+        titlebar:rightTextColor="@color/accent_white"
+        titlebar:rightType="textView"/>
+
+    <EditText
+        android:id="@+id/et_message_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_high"
+        android:hint="@string/send_email_title"/>
+
+    <EditText
+        android:id="@+id/et_message_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/send_email_content"/>
+
+</LinearLayout>

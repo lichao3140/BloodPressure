@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton ibBloodPressure;
     private ImageButton ibWeightMeasurement;
     private ImageButton ibUserInformation;
+    private ImageButton ibTechnicalSupport;
     private ImageButton ibSignOut;
     private ArrayList<Fragment> fragmentList;
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ibBloodPressure = findViewById(R.id.ib_blood_pressure);
             ibWeightMeasurement = findViewById(R.id.ib_weight_measurement);
             ibUserInformation = findViewById(R.id.ib_user_information);
+            ibTechnicalSupport = findViewById(R.id.ib_technical_support);
             ibSignOut = findViewById(R.id.ib_sign_out);
 
             ibBloodPressure.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +131,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View view) {
                     Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
                     intent.putExtra("email", email);
+                    startActivity(intent);
+                }
+            });
+
+            ibTechnicalSupport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, TechnicalSupportActivity.class);
                     startActivity(intent);
                 }
             });

@@ -47,6 +47,7 @@
         <activity android:name=".ui.activity.AddRemindActivity" />
         <activity android:name=".ui.activity.RemindDataActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
+        <activity android:name=".ui.activity.TechnicalSupportActivity" />
 
         <service
             android:name="com.lifesense.ble.message.NotificationService"
