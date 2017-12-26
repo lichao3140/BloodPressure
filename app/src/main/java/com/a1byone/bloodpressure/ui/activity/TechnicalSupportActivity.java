@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.a1byone.bloodpressure.R;
 import com.a1byone.bloodpressure.mail.SendMailUtil;
+import com.a1byone.bloodpressure.utils.ToastUtil;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.io.File;
@@ -26,6 +27,8 @@ public class TechnicalSupportActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private CommonTitleBar technicalSupportToolBar;
+    private String emailTitle;
+    private String emailContent;
 
     @BindView(R.id.et_message_title)
     EditText etMessageTitle;
@@ -39,6 +42,7 @@ public class TechnicalSupportActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         technicalSupportToolBar = findViewById(R.id.technical_support_title_bar);
+
         technicalSupportToolBar.getLeftCustomView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +53,15 @@ public class TechnicalSupportActivity extends AppCompatActivity {
         technicalSupportToolBar.getRightTextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendMailUtil.send(etMessageTitle.getText().toString().trim());
+                emailTitle = etMessageTitle.getText().toString().trim();
+                emailContent = etMessageContent.getText().toString().trim();
+                if (emailTitle.equals("")) {
+                    ToastUtil.showShort(TechnicalSupportActivity.this, "主题不能为空");
+                } else {
+                    SendMailUtil.send("lichao3140@icloud.com", emailTitle, emailContent);
+                    ToastUtil.showShort(TechnicalSupportActivity.this, "邮件发送成功");
+                    onBackPressed();
+                }
             }
         });
     }
@@ -72,7 +84,7 @@ public class TechnicalSupportActivity extends AppCompatActivity {
             } catch (IOException e) {
             }
         }
-        SendMailUtil.send(file, "");
+        SendMailUtil.send(file, "", "", "");
     }
 
     @Override

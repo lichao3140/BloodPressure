@@ -43,14 +43,6 @@ public class MailSender {
 		}
 		// 根据邮件会话属性和密码验证器构造一个发送邮件的session
 		Session sendMailSession = Session.getDefaultInstance(pro, authenticator);
-
-//		Session sendMailSession = Session.getInstance(pro, new Authenticator() {
-//			@Override
-//			protected PasswordAuthentication getPasswordAuthentication() {
-//				return new PasswordAuthentication(mailInfo.getUserName(),mailInfo.getPassword());
-//			}
-//		});
-
 		try {
 			// 根据session创建一个邮件消息
 			Message mailMessage = new MimeMessage(sendMailSession);
