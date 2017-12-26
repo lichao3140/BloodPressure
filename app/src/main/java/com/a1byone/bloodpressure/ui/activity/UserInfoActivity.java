@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
@@ -44,6 +45,20 @@ public class UserInfoActivity extends AppCompatActivity {
     Button btInfoCancel;
     @BindView(R.id.bt_info_save)
     Button btInfoSave;
+    @BindView(R.id.rb_sex_male)
+    RadioButton rbSexMale;
+    @BindView(R.id.rb_sex_female)
+    RadioButton rbSexFemale;
+    @BindView(R.id.rb_common_person)
+    RadioButton rbCommonPerson;
+    @BindView(R.id.rb_hobby_person)
+    RadioButton rbHobbyPerson;
+    @BindView(R.id.rb_professional_person)
+    RadioButton rbProfessionalPerson;
+    @BindView(R.id.rb_baby_sex_male)
+    RadioButton rbBabySexMale;
+    @BindView(R.id.rb_baby_sex_female)
+    RadioButton rbBabySexFemale;
 
     private CommonTitleBar userInfoToolBar;
     private Switch switchBaby;
@@ -52,6 +67,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private RadioGroup userInfoGrade;
     private RadioGroup babyInfoSex;
     private List<UserInfo> listUserInfo;
+    private UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +83,41 @@ public class UserInfoActivity extends AppCompatActivity {
         String email = intent.getStringExtra("email");
         listUserInfo = new ArrayList<>();
         listUserInfo = UserDao.queryUser(email);
+        userInfo = listUserInfo.get(0);
+
+        etUserName.setText(userInfo.getName());
+        etUserBron.setText(userInfo.getBron());
+        etUserHeight.setText(userInfo.getHeight());
+        if (userInfo.getSex() == null) {
+
+        } else if (userInfo.getSex().equals("1")) {
+            rbSexMale.setChecked(true);
+        } else {
+            rbSexFemale.setChecked(true);
+        }
+        if (userInfo.getGrade() == null) {
+
+        } else if (userInfo.getGrade().equals("1")) {
+            rbCommonPerson.setChecked(true);
+        } else if (userInfo.getGrade().equals("2")) {
+            rbHobbyPerson.setChecked(true);
+        } else {
+            rbProfessionalPerson.setChecked(true);
+        }
+        if (userInfo.getIsBaby() == null) {
+
+        } else if (userInfo.getIsBaby().equals("1")) {
+            switchBaby.setChecked(true);
+            etBabyName.setText(userInfo.getBabyName());
+            etBabyBron.setText(userInfo.getBabyBron());
+            if (userInfo.getBabySex() == null) {
+
+            } else if (userInfo.getBabySex().equals("1")) {
+                rbBabySexMale.setChecked(true);
+            } else {
+                rbBabySexFemale.setChecked(true);
+            }
+        }
     }
 
     private void initView() {
@@ -87,7 +138,6 @@ public class UserInfoActivity extends AppCompatActivity {
         switchBaby.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                UserInfo userInfo = listUserInfo.get(0);
                 if (isChecked) {
                     babyInfoView.setVisibility(View.VISIBLE);
                     userInfo.setIsBaby("1");
@@ -105,7 +155,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_info_cancel:
-
+                onBackPressed();
                 break;
             case R.id.bt_info_save:
                 addUserInfo();
@@ -117,6 +167,8 @@ public class UserInfoActivity extends AppCompatActivity {
         String userName = etUserName.getText().toString().trim();
         String userBron = etUserBron.getText().toString().trim();
         String userHeight = etUserHeight.getText().toString().trim();
+        String babyName = etBabyName.getText().toString().trim();
+        String babyBron = etBabyBron.getText().toString().trim();
 
         if (userName.equals("")) {
             ToastUtil.showShort(UserInfoActivity.this, "姓名不能为空");
@@ -125,15 +177,17 @@ public class UserInfoActivity extends AppCompatActivity {
         } else if (userHeight.equals("")) {
             ToastUtil.showShort(UserInfoActivity.this, "身高不能为空");
         } else {
-            UserInfo userInfo = listUserInfo.get(0);
             userInfo.setName(userName);
             userInfo.setSex(getUserSex());
             userInfo.setBron(userBron);
             userInfo.setHeight(userHeight);
             userInfo.setGrade(getUserGrade());
+            userInfo.setBabyName(babyName);
+            userInfo.setBabySex(getBabySex());
+            userInfo.setBabyBron(babyBron);
             UserDao.updateUser(userInfo);
             ToastUtil.showShort(UserInfoActivity.this, "个人资料保存成功");
-
+            onBackPressed();
         }
     }
 
@@ -164,9 +218,9 @@ public class UserInfoActivity extends AppCompatActivity {
     private String getBabySex() {
         String sex = "";
         int babySex = babyInfoSex.getCheckedRadioButtonId();
-        if (babySex == R.id.rb_sex_male) {
+        if (babySex == R.id.rb_baby_sex_male) {
             sex = "1";
-        } else if (babySex == R.id.rb_sex_female) {
+        } else if (babySex == R.id.rb_baby_sex_female) {
             sex = "2";
         }
         return sex;
