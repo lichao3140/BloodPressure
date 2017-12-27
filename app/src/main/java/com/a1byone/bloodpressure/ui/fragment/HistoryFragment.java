@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.a1byone.bloodpressure.R;
+import com.a1byone.bloodpressure.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2017-12-07.
@@ -31,6 +32,9 @@ public class HistoryFragment extends BaseFragment {
         View view = View.inflate(getActivity(), R.layout.fragment_hostory, null);
         tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        Bundle bundle = getArguments();
+        String email = bundle.getString("email");
+        ToastUtil.showShort(getActivity(), email);
         return view;
     }
 

@@ -1,9 +1,13 @@
 package com.a1byone.bloodpressure.bean;
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Unique;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.ToMany;
+import org.greenrobot.greendao.annotation.Unique;
+
+import java.util.List;
 
 /**
  * 用户信息
@@ -37,6 +41,15 @@ public class UserInfo {
     private String babyName;//婴儿名字
     private String babySex;//婴儿性别  1---男  2---女
     private String babyBron;//婴儿月份
+
+    @ToMany(referencedJoinProperty = "uid")
+    private List<Remind> reminds;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+    /** Used for active entity operations. */
+    @Generated(hash = 437952339)
+    private transient UserInfoDao myDao;
 
     @Generated(hash = 2059515799)
     public UserInfo(Long id, String email, String password, String name, String sex,
@@ -129,6 +142,71 @@ public class UserInfo {
     }
     public void setBabyBron(String babyBron) {
         this.babyBron = babyBron;
+    }
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 1708354117)
+    public List<Remind> getReminds() {
+        if (reminds == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            RemindDao targetDao = daoSession.getRemindDao();
+            List<Remind> remindsNew = targetDao._queryUserInfo_Reminds(id);
+            synchronized (this) {
+                if (reminds == null) {
+                    reminds = remindsNew;
+                }
+            }
+        }
+        return reminds;
+    }
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1469250469)
+    public synchronized void resetReminds() {
+        reminds = null;
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 821180768)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getUserInfoDao() : null;
     }
 
 }

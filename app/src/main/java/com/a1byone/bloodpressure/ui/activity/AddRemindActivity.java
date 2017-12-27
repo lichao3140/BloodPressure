@@ -1,5 +1,6 @@
 package com.a1byone.bloodpressure.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.a1byone.bloodpressure.Dao.RemindDao;
 import com.a1byone.bloodpressure.R;
+import com.a1byone.bloodpressure.bean.Remind;
 import com.a1byone.bloodpressure.ui.adapter.RemindDataAdapter;
 import com.a1byone.bloodpressure.ui.widget.RecyclerViewWidget;
 import com.a1byone.bloodpressure.utils.ToastUtil;
@@ -44,6 +47,8 @@ public class AddRemindActivity extends AppCompatActivity
     private List<String> list;
     private RemindDataAdapter remindDataAdapter;
     private RecyclerView recyclerView;
+    private String email;
+    private Long userId;
 
     @BindView(R.id.tv_add_remind_time)
     TextView tvAddRemindTime;
@@ -62,8 +67,12 @@ public class AddRemindActivity extends AppCompatActivity
         setContentView(addRemindView);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        userId = intent.getLongExtra("userId", 0);
+
         tvAddRemindTime.setText(getSysTime());
-        addRemindBar = (CommonTitleBar) findViewById(R.id.add_remind_title_bar);
+        addRemindBar = findViewById(R.id.add_remind_title_bar);
         addRemindLeftLayout = addRemindBar.getLeftCustomView();
         addRemindRightLayout = addRemindBar.getRightCustomView();
 
@@ -77,9 +86,17 @@ public class AddRemindActivity extends AppCompatActivity
         addRemindRightLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShort(AddRemindActivity.this, "确定");
+                addRemind(tvAddRemindTime.getText().toString());
+                ToastUtil.showShort(AddRemindActivity.this, "设定成功");
             }
         });
+    }
+
+    private void addRemind(String time) {
+        Remind remind = new Remind();
+        remind.setUid(userId);
+        remind.setTime(time);
+        RemindDao.insertRemind(remind);
     }
 
     private String getSysTime() {

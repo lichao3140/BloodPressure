@@ -109,11 +109,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     if (listUserInfo.get(0).getName() == null) {
                         Intent intent = new Intent(LoginActivity.this, UserInfoActivity.class);
                         intent.putExtra("email", email);
+                        intent.putExtra("userId", listUserInfo.get(0).getId());
                         startActivity(intent);
                         ToastUtil.showShort(LoginActivity.this, "登录成功, 请先完善个人资料");
                     } else {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("email", email);
+                        intent.putExtra("userId", listUserInfo.get(0).getId());
                         startActivity(intent);
                         ToastUtil.showShort(LoginActivity.this, "登录成功");
                     }

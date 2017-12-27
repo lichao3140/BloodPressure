@@ -43,6 +43,10 @@ dependencies {
     implementation 'com.github.yilylong:CBDialog:v1.0.6'
     implementation 'com.code-troopers.betterpickers:library:3.1.0'
     implementation 'org.greenrobot:greendao:3.2.2'
+    // 使用数据库加密时添加
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.6'
+    // 使用数据库升级辅助GreenDaoUpgradeHelper
+    implementation 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

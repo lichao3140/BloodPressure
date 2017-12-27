@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean menuViewLoad = false;//menuView是否载入过的flag
     private boolean isExit;//是否退出
     private String email;
+    private Long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuView = LayoutInflater.from(this).inflate(R.layout.activity_menu, null);
         setMainView();
 
-        mainBottomSwitcherContainer = (LinearLayout) findViewById(R.id.main_bottom_switcher_container);
-        mainTitleBar = (CommonTitleBar) findViewById(R.id.main_title_bar);
+        mainBottomSwitcherContainer = findViewById(R.id.main_bottom_switcher_container);
+        mainTitleBar = findViewById(R.id.main_title_bar);
         mainLeftLayout = mainTitleBar.getLeftCustomView();
         mainRightLayout = mainTitleBar.getRightCustomView();
 
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
+        userId = intent.getLongExtra("userId", 0);
 
         initFragment();
         initClick();
@@ -78,10 +80,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddRemindActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
-
     }
 
     private void setMainView() {
@@ -188,6 +191,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void changeFragment(int index) {
         //获取fragment的管理者对象
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragmentList.get(index)).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("email", email);
+        bundle.putLong("userId", userId);
+        fragmentList.get(index).setArguments(bundle);
     }
 
     private void changeToolBar(int index) {
@@ -199,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 mainTitleBar.getCenterTextView().setText("历史");
                 mainRightLayout.setVisibility(View.GONE);
-
                 break;
             case 2:
                 mainTitleBar.getCenterTextView().setText("提醒");
