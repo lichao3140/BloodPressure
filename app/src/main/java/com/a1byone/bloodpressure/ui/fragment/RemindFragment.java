@@ -14,7 +14,6 @@ import com.a1byone.bloodpressure.bean.RemindModel;
 import com.a1byone.bloodpressure.ui.adapter.ItemTouchHelpCallback;
 import com.a1byone.bloodpressure.ui.adapter.LCItemDecoration;
 import com.a1byone.bloodpressure.ui.adapter.RemindFragmentAdapter;
-import com.a1byone.bloodpressure.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,6 @@ public class RemindFragment extends BaseFragment {
         Bundle bundle = getArguments();
         String email = bundle.getString("email");
         Long userId = bundle.getLong("userId");
-        ToastUtil.showShort(getActivity(), email + "  " + userId);
 
         mRecyclerView = view.findViewById(R.id.remind_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -53,14 +51,8 @@ public class RemindFragment extends BaseFragment {
 
     private List<RemindModel> createTestDates() {
         List<RemindModel> result = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            RemindModel testModel= new RemindModel(i,":Item Swipe Action Button Container Width");
-            if (i == 1) {
-                testModel = new RemindModel(i, "Item Swipe with Action container width and no spring");
-            }
-            if (i == 2) {
-                testModel = new RemindModel(i, "Item Swipe with RecyclerView Width");
-            }
+        for (int i = 0; i < 10; i++) {
+            RemindModel testModel = new RemindModel(i, "9:15");
             result.add(testModel);
         }
         return result;

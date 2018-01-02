@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -76,7 +77,31 @@ public class RemindFragmentAdapter extends RecyclerView.Adapter {
                 ToastUtil.showShort(mContext, "tem Content click: #" + holder.getAdapterPosition());
             }
         });
-
+        if (holder instanceof ItemViewHolderWithRecyclerWidth) {
+            ItemViewHolderWithRecyclerWidth viewHolder = (ItemViewHolderWithRecyclerWidth) holder;
+            viewHolder.mActionViewDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e(TAG, "mActionViewDelete");
+                    doDelete(holder.getAdapterPosition());
+                }
+            });
+        } else if (holder instanceof ItemSwipeWithActionWidthViewHolder) {
+            ItemSwipeWithActionWidthViewHolder viewHolder = (ItemSwipeWithActionWidthViewHolder) holder;
+            viewHolder.mActionViewRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ToastUtil.showShort(mContext, "Refresh Click" + holder.getAdapterPosition());
+                }
+            });
+            viewHolder.mActionViewDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e(TAG, "mActionViewDelete");
+                    doDelete(holder.getAdapterPosition());
+                }
+            });
+        }
     }
 
     @Override
@@ -86,13 +111,7 @@ public class RemindFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (remindModels.get(position).position == 1) {
-            return ITEM_TYPE_ACTION_WIDTH_NO_SPRING;
-        }
-        if (remindModels.get(position).position == 2) {
-            return ITEM_TYPE_RECYCLER_WIDTH;
-        }
-        return ITEM_TYPE_ACTION_WIDTH;
+        return ITEM_TYPE_ACTION_WIDTH_NO_SPRING;
     }
 
     private void doDelete(int adapterPosition) {
