@@ -35,7 +35,7 @@ import butterknife.OnClick;
  */
 public class AddRemindActivity extends AppCompatActivity
         implements RadialTimePickerDialogFragment.OnTimeSetListener {
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = AddRemindActivity.class.getSimpleName();
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
 
     private CommonTitleBar addRemindBar;

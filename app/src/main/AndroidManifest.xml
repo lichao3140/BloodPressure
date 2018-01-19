@@ -48,6 +48,7 @@
         <activity android:name=".ui.activity.RemindDataActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.TechnicalSupportActivity" />
+        <activity android:name=".ui.activity.AppSettingActivity" />
 
         <service
             android:name="com.lifesense.ble.message.NotificationService"
@@ -71,7 +72,6 @@
         <service
             android:name=".service.BluetoothLeService"
             android:enabled="true" />
-
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * 技术支持
  */
 public class TechnicalSupportActivity extends AppCompatActivity {
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = TechnicalSupportActivity.class.getSimpleName();
 
     private CommonTitleBar technicalSupportToolBar;
     private String emailTitle;

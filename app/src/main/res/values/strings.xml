@@ -21,6 +21,8 @@
     <string name="send_email">发送</string>
     <string name="send_email_title">主题</string>
     <string name="send_email_content">内容</string>
+    <string name="app_setting">设置</string>
+    <string name="setting_google_fit">Google Fit</string>
 
     <string name="preferenceScreen_title">Scan Filter</string>
     <string name="listPreference_dialogTitle">Choose Broadcast Type</string>

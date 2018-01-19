@@ -19,7 +19,7 @@ import java.util.Map;
  */
 
 public class RemindDataActivity extends AppCompatActivity implements View.OnClickListener{
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = RemindDataActivity.class.getSimpleName();
 
     private RemindDataAdapter remindDataAdapter;
     private List<String> list;

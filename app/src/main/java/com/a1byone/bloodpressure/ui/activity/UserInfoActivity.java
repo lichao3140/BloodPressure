@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * 个人信息
  */
 public class UserInfoActivity extends AppCompatActivity {
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = UserInfoActivity.class.getSimpleName();
 
     @BindView(R.id.et_user_name)
     EditText etUserName;
