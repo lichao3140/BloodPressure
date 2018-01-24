@@ -20,6 +20,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //应用开始就设置全局捕获异常器没有设置就会用系统默认的
+        CauchExceptionHandler.getInstance().setDefaultUnCachExceptionHandler();
+
         setupDatabase();
 
         LsBleManager.getInstance().initialize(getApplicationContext());
