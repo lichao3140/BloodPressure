@@ -11,7 +11,7 @@
         android:id="@+id/login_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        titlebar:titleBarColor="@color/md_light_primary_icon"
+        titlebar:titleBarColor="@color/md_cyan_A800"
         titlebar:centerText="@string/login"
         titlebar:centerType="textView"
         titlebar:centerTextColor="@color/accent_white"

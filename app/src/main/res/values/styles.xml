@@ -4,8 +4,16 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/accent_indago</item>
-        <item name="colorPrimaryDark">@color/md_indigo_900</item>
+        <!--状态栏颜色-->
+        <item name="colorPrimaryDark">@color/md_cyan_A800</item>
         <item name="colorAccent">@color/md_pink_500</item>
+    </style>
+
+    <style name="Theme.MyAppTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/beijing</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 </resources>
