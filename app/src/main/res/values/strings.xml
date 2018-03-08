@@ -14,6 +14,12 @@
     <string name="no_device_tip">未连接</string>
     <string name="login">登录</string>
     <string name="register">Join 1byone Health</string>
+    <string name="user_name">User Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password(6-16 digital numbers or letters)</string>
+    <string name="register_tip">By clicking next, you confirm that you have read and agree</string>
+    <string name="privacy_police">privacy police</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="go_to_register">去注册</string>
     <string name="user_information">个人资料</string>
     <string name="baby_information">添加婴儿资料</string>

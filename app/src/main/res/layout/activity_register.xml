@@ -13,8 +13,7 @@
         titlebar:titleBarColor="@color/md_cyan_A800"
         titlebar:centerText="@string/register"
         titlebar:centerType="textView"
-        titlebar:centerTextColor="@color/accent_white"
-        titlebar:leftType="customView"/>
+        titlebar:centerTextColor="@color/accent_white"/>
 
     <ProgressBar
         android:id="@+id/register_progress"

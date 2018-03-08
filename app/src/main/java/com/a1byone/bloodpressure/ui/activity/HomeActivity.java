@@ -9,37 +9,43 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-
 import com.a1byone.bloodpressure.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.ib_register)
-    ImageButton ibRegister;
-    @BindView(R.id.ib_login)
-    ImageButton ibLogin;
+    private ImageButton ibRegister;
+    private ImageButton ibLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        setContentView(R.layout.activity_home);
+        if (hasKitKat() && !hasLollipop()) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//          getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        } else if (hasLollipop()) {
             Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                  | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
-        setContentView(R.layout.activity_home);
-
-        ButterKnife.bind(this);
-
+        init();
     }
 
-    @OnClick({R.id.ib_register, R.id.ib_login})
+    private void init() {
+        ibRegister = findViewById(R.id.ib_register);
+        ibLogin = findViewById(R.id.ib_login);
+        ibRegister.setOnClickListener(this);
+        ibLogin.setOnClickListener(this);
+    }
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ib_register:
@@ -53,9 +59,11 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public static boolean hasKitKat() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public static boolean hasLollipop() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 }

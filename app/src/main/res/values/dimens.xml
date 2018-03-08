@@ -5,11 +5,20 @@
     <dimen name="layout_margin_top_20">20dp</dimen>
     <dimen name="dialog_text_padding">5dp</dimen>
     <dimen name="layout_high">60dp</dimen>
+    <dimen name="layout_high_50">50dp</dimen>
+    <dimen name="layout_high_40">40dp</dimen>
+    <dimen name="layout_high_30">30dp</dimen>
     <dimen name="layout_margin_top_5">5dp</dimen>
+    <dimen name="layout_margin_top_10">10dp</dimen>
+    <dimen name="layout_margin_top_15">15dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="register_image_width">20dp</dimen>
+    <dimen name="register_image_height">20dp</dimen>
     <dimen name="layout_margin_bottom_200">200dp</dimen>
     <dimen name="edit_text_width">100dp</dimen>
 
     <dimen name="text_size">20sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

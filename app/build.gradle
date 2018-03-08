@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:support-vector-drawable:26.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.wuhenzhizao:titlebar:1.0.6'
+    implementation 'com.wuhenzhizao:titlebar:1.0.7'
     implementation 'com.android.support:palette-v7:26.1.0'
     implementation 'com.github.yilylong:CBDialog:v1.0.6'
     implementation 'com.code-troopers.betterpickers:library:3.1.0'
